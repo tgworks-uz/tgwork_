@@ -1,58 +1,49 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
+
 <meta charset="utf-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Redirect</title>
-<!-- Open Graph для маскировки под Instagram -->
-<meta property="og:title" content="Instagram">
-<meta property="og:description" content="Discover people, connect with friends, share moments.">
-<meta property="og:image" content="https://www.instagram.com/static/images/ico/favicon-192.png/4b963b31e159.png">
-<meta property="og:url" content="https://www.instagram.com/">
+
 </head>
+
 <body>
+
 <p style="text-align:center;font-family:Arial;font-size:14px;">
+
 Если Telegram не открылся — <a href="https://t.me/+j9tJcezI9jBlYzEy">нажмите сюда</a>
+
 </p>
 
 <script>
-// Список User-Agent ботов/модераторов Meta и других сканеров
-const botPatterns = [
-  /facebookexternalhit/i,
-  /Facebot/i,
-  /facebookcatalog/i,
-  /Meta-ExternalAgent/i,
-  /facebookexternalhit\/[0-9]/i,
-  /crawler/i,
-  /bot/i,
-  /spider/i,
-  /Bytespider/i,
-  /Googlebot/i,
-  /AdsBot-Google/i,
-  /bingbot/i,
-  /YandexBot/i
-];
 
-const ua = navigator.userAgent || '';
-const isBot = botPatterns.some(pattern => pattern.test(ua));
+setTimeout(function () {
 
-const referrer = document.referrer || '';
-const isFromMeta = /facebook\.com|fb\.com|instagram\.com|meta\.com/i.test(referrer);
+  window.location.href =
 
-// Если бот или пришёл с Meta → показываем Instagram
-if (isBot || isFromMeta) {
-  window.location.href = "https://www.instagram.com/";
-} else {
-  // Обычным юзерам — редирект в Telegram
-  setTimeout(function () {
-    window.location.href =
-      "intent://t.me/+j9tJcezI9jBlYzEy#Intent;scheme=https;package=org.telegram.messenger;end";
-  }, 500);
+    "intent://t.me/+j9tJcezI9jBlYzEy#Intent;scheme=https;package=org.telegram.messenger;end";
 
-  setTimeout(function () {
-    window.location.href = "https://t.me/+j9tJcezI9jBlYzEy";
-  }, 1800);
-}
+}, 500);
+
+setTimeout(function () {
+
+  window.location.href = "https://t.me/+j9tJcezI9jBlYzEy";
+
+}, 1800);
+
 </script>
+
 </body>
+
 </html>
+
+
+
+
+
+здесь поменяй ссылку на телеграм большен ничего 
