@@ -1,49 +1,124 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="pt-BR">
 <head>
-
-<meta charset="utf-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Redirect</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Canal Oficial</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0F172A;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 420px;
+        }
+        .logo {
+            width: 90px;
+            height: 90px;
+            background: #229ED9;
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        p {
+            font-size: 17px;
+            color: #94A3B8;
+            margin-bottom: 40px;
+            line-height: 1.4;
+        }
+        .btn {
+            display: block;
+            background: #229ED9;
+            color: white;
+            font-size: 26px;
+            font-weight: 700;
+            padding: 22px 60px;
+            border-radius: 16px;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(34, 158, 217, 0.4);
+            transition: all 0.2s;
+            margin: 0 auto;
+        }
+        .btn:active {
+            transform: scale(0.97);
+            background: #1e8ac2;
+        }
+        .loading {
+            display: none;
+            margin-top: 20px;
+            font-size: 15px;
+            color: #64748B;
+        }
+    </style>
 </head>
-
 <body>
+    <div class="container">
+        <div class="logo">📢</div>
+        <h1>Entre no canal oficial</h1>
+        <p>Receba conteúdos exclusivos, sinais e atualizações em primeira mão</p>
+        
+        <a href="#" id="joinBtn" class="btn">Entrar no Canal</a>
+        
+        <div class="loading" id="loading">Abrindo o Telegram...</div>
+    </div>
 
-<p style="text-align:center;font-family:Arial;font-size:14px;">
+    <script>
+        const channelUsername = "SEU_CANAL"; // ←←← ЗАМЕНИ НА СВОЁ ИМЯ КАНАЛА (без @)
 
-Если Telegram не открылся — <a href="https://t.me/+j9tJcezI9jBlYzEy">нажмите сюда</a>
+        const tgDeepLink = `tg://resolve?domain=${channelUsername}`;
+        const tgWebLink = `https://t.me/${channelUsername}`;
+        const btn = document.getElementById('joinBtn');
+        const loading = document.getElementById('loading');
 
-</p>
+        // Устанавливаем кнопку на веб-ссылку (на случай если deep link не сработает)
+        btn.href = tgWebLink;
 
-<script>
+        function tryOpenTelegram() {
+            loading.style.display = 'block';
+            
+            // Пробуем открыть через приложение
+            window.location.href = tgDeepLink;
 
-setTimeout(function () {
+            // Fallback через 750 мс
+            setTimeout(() => {
+                window.location.href = tgWebLink;
+            }, 750);
+        }
 
-  window.location.href =
+        // Автозапуск на мобильных устройствах
+        const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        if (isMobile) {
+            setTimeout(tryOpenTelegram, 450); // небольшая задержка для лучшего UX
+        }
 
-    "intent://t.me/+j9tJcezI9jBlYzEy#Intent;scheme=https;package=org.telegram.messenger;end";
-
-}, 500);
-
-setTimeout(function () {
-
-  window.location.href = "https://t.me/+j9tJcezI9jBlYzEy";
-
-}, 1800);
-
-</script>
-
+        // Клик по кнопке — тоже запускает тот же механизм
+        btn.addEventListener('click', function(e) {
+            if (isMobile) {
+                e.preventDefault();
+                tryOpenTelegram();
+            }
+            // на десктопе просто переходит по ссылке
+        });
+    </script>
 </body>
-
 </html>
-
-
-
-
-
-здесь поменяй ссылку на телеграм большен ничего 
