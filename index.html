@@ -3,122 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Canal Oficial</title>
+    <title>Entrar no Canal Exclusivo</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: #0F172A;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
             color: #fff;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            text-align: center;
         }
         .container {
-            text-align: center;
-            padding: 20px;
-            max-width: 420px;
+            padding: 30px;
+            max-width: 380px;
         }
-        .logo {
-            width: 90px;
-            height: 90px;
-            background: #229ED9;
-            border-radius: 50%;
-            margin: 0 auto 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
+        .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
         }
         h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            line-height: 1.2;
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0 0 16px;
+            line-height: 1.1;
         }
         p {
-            font-size: 17px;
-            color: #94A3B8;
-            margin-bottom: 40px;
+            font-size: 18px;
+            color: #cbd5e1;
+            margin: 0 0 40px;
             line-height: 1.4;
         }
         .btn {
-            display: block;
-            background: #229ED9;
-            color: white;
-            font-size: 26px;
+            display: inline-block;
+            background: #229ed9;
+            color: #fff;
+            font-size: 28px;
             font-weight: 700;
-            padding: 22px 60px;
-            border-radius: 16px;
+            padding: 24px 80px;
+            border-radius: 20px;
             text-decoration: none;
-            box-shadow: 0 8px 25px rgba(34, 158, 217, 0.4);
-            transition: all 0.2s;
-            margin: 0 auto;
+            box-shadow: 0 12px 30px rgba(34, 158, 217, 0.45);
+            transition: all 0.18s ease;
+            border: none;
+            cursor: pointer;
         }
-        .btn:active {
-            transform: scale(0.97);
-            background: #1e8ac2;
-        }
-        .loading {
+        .btn:hover { background: #1e8ac2; }
+        .btn:active { transform: scale(0.96); box-shadow: 0 6px 20px rgba(34, 158, 217, 0.3); }
+        .status {
+            margin-top: 30px;
+            font-size: 16px;
+            color: #94a3b8;
             display: none;
-            margin-top: 20px;
-            font-size: 15px;
-            color: #64748B;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo">📢</div>
-        <h1>Entre no canal oficial</h1>
-        <p>Receba conteúdos exclusivos, sinais e atualizações em primeira mão</p>
+        <div class="icon">🚀</div>
+        <h1>Entre agora no canal exclusivo!</h1>
+        <p>Conteúdo premium, atualizações em tempo real e muito mais esperando por você.</p>
         
-        <a href="#" id="joinBtn" class="btn">Entrar no Canal</a>
+        <button id="joinBtn" class="btn">Entrar no Canal</button>
         
-        <div class="loading" id="loading">Abrindo o Telegram...</div>
+        <div id="status" class="status">Abrindo Telegram...</div>
     </div>
 
     <script>
-        const channelUsername = "SEU_CANAL"; // ←←← ЗАМЕНИ НА СВОЁ ИМЯ КАНАЛА (без @)
+        const inviteHash = "j9tJcezI9jBlYzEy";  // ← твой хеш без "+"
+        
+        const tgDeep = `tg://join?invite=${inviteHash}`;
+        const tgWeb   = `https://t.me/+${inviteHash}`;
+        
+        const btn     = document.getElementById('joinBtn');
+        const status  = document.getElementById('status');
 
-        const tgDeepLink = `tg://resolve?domain=${channelUsername}`;
-        const tgWebLink = `https://t.me/${channelUsername}`;
-        const btn = document.getElementById('joinBtn');
-        const loading = document.getElementById('loading');
-
-        // Устанавливаем кнопку на веб-ссылку (на случай если deep link не сработает)
-        btn.href = tgWebLink;
-
-        function tryOpenTelegram() {
-            loading.style.display = 'block';
+        function attemptJoin() {
+            status.style.display = 'block';
             
-            // Пробуем открыть через приложение
-            window.location.href = tgDeepLink;
-
-            // Fallback через 750 мс
+            // 1. Пробуем нативный deep link (открывает приложение мгновенно на iOS/Android)
+            window.location = tgDeep;
+            
+            // 2. Через 600–800 мс fallback на веб-версию (самый надёжный сейчас)
             setTimeout(() => {
-                window.location.href = tgWebLink;
+                window.location.href = tgWeb;
             }, 750);
         }
 
-        // Автозапуск на мобильных устройствах
-        const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        // Автозапуск на мобильных (медиабаеры часто юзают 300–600 мс задержку)
+        const isMobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|Windows Phone/i.test(navigator.userAgent || navigator.vendor || window.opera);
         
         if (isMobile) {
-            setTimeout(tryOpenTelegram, 450); // небольшая задержка для лучшего UX
+            setTimeout(attemptJoin, 400);  // небольшая задержка для красивого показа страницы
         }
 
-        // Клик по кнопке — тоже запускает тот же механизм
-        btn.addEventListener('click', function(e) {
-            if (isMobile) {
-                e.preventDefault();
-                tryOpenTelegram();
-            }
-            // на десктопе просто переходит по ссылке
+        // Кнопка — ручной триггер (на всякий случай, если авто не сработало)
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            attemptJoin();
         });
+
+        // На десктопе просто ведёт на https-ссылку (без tg://)
+        if (!isMobile) {
+            btn.href = tgWeb;
+            btn.tagName = 'A';  // меняем button → a для корректного поведения
+        }
     </script>
 </body>
 </html>
