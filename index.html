@@ -3,24 +3,84 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redirect</title>
+<title>Abrir Telegram</title>
+<style>
+body {
+  margin:0;
+  padding:0;
+  font-family:Arial, sans-serif;
+  background:#f5f7fa;
+  text-align:center;
+}
+
+h2 {
+  font-size:22px;
+  margin:30px 0 10px;
+}
+
+p {
+  font-size:16px;
+  color:#333;
+  margin-bottom:25px;
+}
+
+/* PULSING BUTTON */
+.telegram-btn {
+  display:inline-block;
+  width:80px;
+  height:80px;
+  background:#37aee2; /* голубой круг */
+  border-radius:50%;
+  text-decoration:none;
+  position:relative;
+  box-shadow:0 6px 16px rgba(0,0,0,0.25);
+  animation:pulse 1.5s infinite;
+  margin-bottom:15px;
+}
+
+.telegram-btn svg {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:40px;
+  height:40px;
+  fill:#fff; /* белый самолетик */
+}
+
+/* PULSE ANIMATION */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.action-text {
+  display:block;
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:20px;
+}
+</style>
 </head>
+
 <body>
 
-<p style="text-align:center;font-family:Arial;font-size:14px;">
-Se o Telegram não abrir — <a href="https://t.me/+ACf1rW5RStRlOTFi">Clique aqui</a>
+<h2>Continuar no Telegram</h2>
+<p>Toque no botão abaixo para abrir</p>
+
+<!-- TELEGRAM BUTTON -->
+<a class="telegram-btn" href="https://t.me/+DRhQ7ZAJ8BthNGEy" target="_blank">
+  <svg viewBox="0 0 240 240">
+    <path d="M120 0C53.7 0 0 53.7 0 120s53.7 120 120 120 120-53.7 120-120S186.3 0 120 0zm55.4 83.2l-18.2 85.9c-1.4 6.4-5.1 7.9-10.3 4.9l-28.4-21-13.7 13.2c-1.5 1.5-2.8 2.8-5.1 2.8l1.8-25.7 46.9-42c2-1.8-.4-2.8-3.1-1l-57.9 36-25-7.8c-5.4-1.7-5.5-5.4 1.1-8.1l97.6-37.6c4.5-1.5 8.4 1.1 7 7.2z"/>
+  </svg>
+</a>
+
+<span class="action-text">Abrir Telegram</span>
+
+<p style="font-size:14px;color:#666;">
+Se não abrir, tente novamente
 </p>
-
-<script>
-setTimeout(function () {
-  window.location.href =
-    "intent://t.me/+ACf1rW5RStRlOTFi#Intent;scheme=https;package=org.telegram.messenger;end";
-}, 500);
-
-setTimeout(function () {
-  window.location.href = "https://t.me/+ACf1rW5RStRlOTFi";
-}, 1800);
-</script>
 
 </body>
 </html>
